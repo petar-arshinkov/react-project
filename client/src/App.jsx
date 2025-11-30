@@ -1,19 +1,22 @@
-import { Routes } from "react-router"
+import { Route, Routes } from "react-router"
+import Home from "./components/Home"
+import Login from "./components/Login"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
 
 function App() {
 
 
   return (
     <>
-
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-
+     <div className="flex flex-col min-h-screen">
       <Routes>
 
-
+        <Route index element={<Home />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
+      <Footer />
+      </div>
     </>
   )
 }
