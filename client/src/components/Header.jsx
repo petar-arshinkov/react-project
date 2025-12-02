@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 // Define the navigation array outside the component
 const navigation = [
     { name: 'Home', to: '/' },
-    { name: 'Features', to: '#' },
+    { name: 'Blog', to: '/blog' },
     { name: 'Marketplace', to: '#' },
     { name: 'Login', to: '/login' },
 ];
@@ -24,7 +24,7 @@ export default function Header() {
                     {/* Logo/Brand Name */}
                     <div className="flex-shrink-0">
                         <Link to="/" className="text-2xl font-bold text-indigo-600">
-                            MyBrand
+                            My Awesome Blog
                         </Link>
                     </div>
 

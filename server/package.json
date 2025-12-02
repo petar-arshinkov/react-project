@@ -21,12 +21,47 @@
         "url": "https://github.com/softuni-practice-server/softuni-practice-server/issues"
     },
     "homepage": "https://github.com/softuni-practice-server/softuni-practice-server#readme",
-    "dependencies": {},
     "devDependencies": {
         "@rollup/plugin-commonjs": "^17.1.0",
         "@rollup/plugin-json": "^4.1.0",
         "@rollup/plugin-node-resolve": "^11.2.0",
         "chai": "4.1.2",
         "rollup": "^2.39.0"
+    },
+    "directories": {
+        "test": "tests"
+    },
+    "dependencies": {
+        "assertion-error": "^1.1.0",
+        "balanced-match": "^1.0.0",
+        "brace-expansion": "^1.1.11",
+        "builtin-modules": "^3.2.0",
+        "check-error": "^1.0.2",
+        "commondir": "^1.0.1",
+        "concat-map": "^0.0.1",
+        "deep-eql": "^3.0.1",
+        "deepmerge": "^4.2.2",
+        "estree-walker": "^2.0.2",
+        "fs.realpath": "^1.0.0",
+        "function-bind": "^1.1.1",
+        "get-func-name": "^2.0.0",
+        "glob": "^7.1.6",
+        "has": "^1.0.3",
+        "inflight": "^1.0.6",
+        "inherits": "^2.0.4",
+        "is-core-module": "^2.2.0",
+        "is-module": "^1.0.0",
+        "is-reference": "^1.2.1",
+        "magic-string": "^0.25.7",
+        "minimatch": "^3.0.4",
+        "once": "^1.4.0",
+        "path-is-absolute": "^1.0.1",
+        "path-parse": "^1.0.6",
+        "pathval": "^1.1.1",
+        "picomatch": "^2.2.2",
+        "resolve": "^1.20.0",
+        "sourcemap-codec": "^1.4.8",
+        "type-detect": "^4.0.8",
+        "wrappy": "^1.0.2"
     }
 }
