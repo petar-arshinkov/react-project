@@ -1,7 +1,6 @@
 import Header from "./Header"
 const Login = () => {
     return (<>
-        <Header />
 {/* // Centering wrapper */}
         <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4 sm:p-6">
             <div className="w-full max-w-md space-y-8 p-10 bg-white rounded-xl shadow-2xl">

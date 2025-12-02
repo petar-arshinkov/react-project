@@ -8,16 +8,14 @@ function App() {
 
 
   return (
-    <>
      <div className="flex flex-col min-h-screen">
+      <Header />
       <Routes>
-
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />
       </div>
-    </>
   )
 }
 
