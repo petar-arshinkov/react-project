@@ -1,17 +1,46 @@
-import Header from "./Header";
+import { useEffect } from "react";
+import Post from "./Post";
+import { useState } from "react";
 
 export default function Home() {
 
+    const BASE_API_URL = 'http://localhost:3030/jsonstore/blog/posts';
+    const [latestPosts, setLatestPosts] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await fetch(BASE_API_URL);
+                const data = await response.json();
+                console.log('Fetched blog posts:', data);
+               
+                setLatestPosts(Object.values(data).slice(0, 4) );
+                
+
+
+            } catch (error) {
+                console.error('Error fetching blog posts:', error);
+            }
+        })();
+
+    }, []);
+
     return (
+
         <>
-            
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow" >
-                <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">Recent Blog Posts</h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                </div>
+            {
+                latestPosts.length > 0
+                    ? (
+                        <div className="min-h-screen pt-8 pb-12">
+                            <h2 className="text-4xl font-bold text-gray-800 mb-8 text-center">Recent Blog Posts</h2>
+                            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                {latestPosts.map(post => <Post key={post.id} {...post} />)}
+                            </div>
+                        </div>
 
-            </div>
+                    ) : (<div className="min-h-screen pt-8 pb-12"><h2 className="text-4xl font-bold text-gray-800 mb-8 text-center">No Blog Posts Yet</h2></div>)
+            }
         </>
     )
 
