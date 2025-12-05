@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import { useState } from "react";
 
 const BASE_API_URL = 'http://localhost:3030/jsonstore/blog/posts/';
@@ -8,6 +8,7 @@ export default function Details() {
 
     const { id } = useParams();
     const [post, setPost] = useState({});
+    const navigate = useNavigate()
 
     useEffect(() => {
         (async () => {
@@ -30,9 +31,17 @@ export default function Details() {
             if (!isConfirmed) {
                 return;
             }
-            fetch(`${BASE_API_URL}${id}`, {
-                method: 'DELETE'
-            })
+
+            try {
+                await fetch(`${BASE_API_URL}${id}`, {
+                    method: 'DELETE'
+                })
+                navigate('/blog');
+
+            } catch (error) {
+                alert('Error deleting post:', error);
+            }
+
         }
     }
 
@@ -67,7 +76,7 @@ export default function Details() {
                          focus:outline-none
                          focus:ring-2 focus:ring-red-400
                          focus:ring-opacity-50" onClick={deleteHandler()}>
-                            <Link to={`/posts/edit/${id}`}>Delete</Link>
+                            Delete
                         </button>
                         <button type="primary" className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 ml-3" >
                             <Link to={`/posts/edit/${id}`}>Edit</Link>
