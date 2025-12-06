@@ -1,11 +1,13 @@
 import { Link } from "react-router";
 
+const maxExcerptLength = 300;
+
 export default function Post(
     {
         id,
         title,
         body,
-        img
+        imageUrl
     }
 ) {
 
@@ -15,17 +17,17 @@ export default function Post(
                 <h3 className="text-xl font-semibold text-indigo-600 mb-2">{title}</h3>
                 <div className="relative w-full aspect-video bg-gray-200">
                     <img
-                        src={img || 'https://placehold.co/600x400/cccccc/000000?text=No+Image'}
+                        src={imageUrl || 'https://placehold.co/600x400/cccccc/000000?text=No+Image'}
                         alt={title}
                         className="w-full h-full object-cover"
                         // Fallback in case image fails to load
                         onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/cccccc/000000?text=Image+Failed'; }}
                     />
                 </div>
-                <p className="text-gray-600 mb-4 text-sm">{body}</p>
+                <p className="text-gray-600 mb-4 text-sm">{body.slice(0,maxExcerptLength)}{body.length > maxExcerptLength ? '...' : ''}</p>
             </div>
             <div className="flex justify-end space-x-2 mt-4">
-                <button type="secondary" className="bg-blue-600 text-white hover:bg-blue-700 font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" >
+                <button type="secondary" className="bg-indigo-600 text-white hover:bg-indigo-700 font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" >
                     <Link to={`/posts/view/${id}`}>View</Link>
                 </button>
 

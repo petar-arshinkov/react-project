@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 const navigation = [
     { name: 'Home', to: '/' },
     { name: 'Blog', to: '/blog' },
-    { name: 'Marketplace', to: '#' },
+    { name: 'Create Post', to: '/posts/create' },
     { name: 'Login', to: '/login' },
 ];
 
