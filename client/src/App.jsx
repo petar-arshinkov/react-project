@@ -11,21 +11,24 @@ import { useState } from "react"
 
 function App() {
   const [user, setUser] = useState(null);
+  const register = (email) => {
+    setUser(email);
+  }
 
   return (
-     <div className="flex flex-col min-h-screen">
-      <Header />
+    <div className="flex flex-col min-h-screen">
+      <Header user={user} />
       <Routes>
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register user={user} setUser={setUser}/>} />
+        <Route path="/register" element={<Register user={user} register={register} />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/posts/create/" element={<Create />} />
         <Route path="/posts/view/:id" element={<Details />} />
       </Routes>
       <Footer />
-      </div>
+    </div>
   )
 }
- 
+
 export default App

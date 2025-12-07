@@ -11,37 +11,50 @@ const navigation = [
     { name: 'Logout', to: '/logout' }
 ];
 
-export default function Header() {
+export default function Header(
+    { user }
+) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+    console.log();
+
     return (
         <header className="bg-white shadow-md">
-            {/* Desktop/Tablet Navigation */}
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
 
-                    {/* Logo/Brand Name */}
                     <div className="flex-shrink-0">
                         <Link to="/" className="text-2xl font-bold text-indigo-600">
                             My Awesome Blog
                         </Link>
                     </div>
 
-                    {/* Desktop Links (Hidden on small screens) */}
+
                     <nav className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
                             {navigation.map((item) => (
                                 <Link
-                                    key={item.name} // Use the name as a unique key for React lists
+                                    key={item.name}
                                     to={item.to}
                                     className="text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
                                 >
                                     {item.name}
                                 </Link>
+                                
                             ))}
+
+                            {user && (
+                                
+                                <div className="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">
+                                    Welcome, {user}
+                                </div>
+                            )}
+
+
                         </div>
                     </nav>
 

@@ -1,8 +1,9 @@
 import { Link } from "react-router"
 
-export default function Register(
+export default function Register({
     user,
-    setUser
+    register 
+}
 ) {
     user && console.log('Registered user:', user);
 
@@ -21,7 +22,7 @@ export default function Register(
             return;
         }
 
-        setUser({ email });
+        register(email);
 
 
     }
@@ -46,7 +47,7 @@ export default function Register(
                     </div>
 
                     {/* Form */}
-                    <form className="mt-8 space-y-6" action={registerSubmitHandler} method="POST">
+                    <form className="mt-8 space-y-6" action={registerSubmitHandler} >
                         <div className="rounded-md shadow-sm -space-y-px">
                             {/* Email Input */}
                             <div>
