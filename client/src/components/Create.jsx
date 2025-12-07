@@ -4,7 +4,8 @@ import { useNavigate } from "react-router";
 
 export default function Create() {
 
-    const BASE_API_URL = 'http://localhost:3030/jsonstore/blog/posts';
+    const BASE_API_URL = 'http://localhost:3030/data/posts';
+    // "http://localhost:3030/jsonstore/blog/posts/"
     const navigate = useNavigate();
 
     const createPostHandler = async (e) => {

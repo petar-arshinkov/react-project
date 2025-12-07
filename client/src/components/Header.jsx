@@ -7,6 +7,8 @@ const navigation = [
     { name: 'Blog', to: '/blog' },
     { name: 'Create Post', to: '/posts/create' },
     { name: 'Login', to: '/login' },
+    { name: 'Register', to: '/register' },
+    { name: 'Logout', to: '/logout' }
 ];
 
 export default function Header() {

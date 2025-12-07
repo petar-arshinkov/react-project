@@ -1,20 +1,21 @@
-import Header from "./Header"
+import { Link } from "react-router";
+
 const Login = () => {
     return (<>
 {/* // Centering wrapper */}
-        <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4 sm:p-6">
-            <div className="w-full max-w-md space-y-8 p-10 bg-white rounded-xl shadow-2xl">
+        <div className="flex min-h-screen items-start justify-center bg-gray-100 p-4 sm:p-6">
+            <div className="mt-8 w-full max-w-md space-y-8 p-10 bg-white rounded-xl shadow-2xl">
 
                 {/* Header */}
                 <div>
-                    <h2 className="text-center text-3xl font-extrabold text-gray-900">
+                    <h2 className="text-center text-3xl font-extrabold text-indigo-600">
                         Sign in to your account
                     </h2>
                     <p className="mt-2 text-center text-sm text-gray-600">
                         Or{' '}
-                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                        <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
                             create a new account
-                        </a>
+                        </Link>
                     </p>
                 </div>
 
@@ -51,27 +52,6 @@ const Login = () => {
                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Password"
                             />
-                        </div>
-                    </div>
-
-                    {/* Remember Me / Forgot Password */}
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                            <input
-                                id="remember-me"
-                                name="remember-me"
-                                type="checkbox"
-                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                            />
-                            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                                Remember me
-                            </label>
-                        </div>
-
-                        <div className="text-sm">
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                Forgot your password?
-                            </a>
                         </div>
                     </div>
 

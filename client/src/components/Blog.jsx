@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import Post from "./Post";
 import { useState } from "react";
 
-const BASE_API_URL = 'http://localhost:3030/jsonstore/blog/posts';
+const BASE_API_URL = 'http://localhost:3030/data/posts';
+// "http://localhost:3030/jsonstore/blog/posts/"
 
 export default function Blog() {
 
@@ -33,7 +34,7 @@ export default function Blog() {
                         <div className=" min-h-screen pt-8 pb-12">
                             <h2 className="text-3xl font-bold text-center text-indigo-600 mb-8">Full Blog Catalog</h2>
                             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                                {posts.map(post => <Post key={post.id} {...post} />)}
+                                {posts.map(post => <Post key={post._id} {...post} />)}
                             </div>
                         </div>
 

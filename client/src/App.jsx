@@ -6,9 +6,11 @@ import Footer from "./components/Footer"
 import Blog from "./components/Blog"
 import Details from "./components/Details"
 import Create from "./components/Create"
+import Register from "./components/Register"
+import { useState } from "react"
 
 function App() {
-
+  const [user, setUser] = useState(null);
 
   return (
      <div className="flex flex-col min-h-screen">
@@ -16,6 +18,7 @@ function App() {
       <Routes>
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register user={user} setUser={setUser}/>} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/posts/create/" element={<Create />} />
         <Route path="/posts/view/:id" element={<Details />} />
