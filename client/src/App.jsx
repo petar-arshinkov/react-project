@@ -9,6 +9,8 @@ import Create from "./components/Create"
 import Register from "./components/Register"
 import { useState } from "react"
 import Logout from "./components/Logout"
+import UserContext from "./contexts/useContext.js"
+
 
 
 function App() {
@@ -56,19 +58,29 @@ function App() {
     setUser(null);
   }
 
+  const authContextValues = {
+    loginHandler,
+    registerHandler,
+    logoutHandler,
+    isAuthenticated:!!user?.accessToken,  
+    user
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
+      <UserContext.Provider value={authContextValues}>
       <Header/>
       <Routes>
         <Route index element={<Home />} />
         <Route path="/login" element={<Login onLogin={loginHandler} />} />
-        <Route path="/register" element={<Register onRegister={registerHandler} />} />
+        <Route path="/register" element={<Register/>} />
         <Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/posts/create/" element={<Create />} />
         <Route path="/posts/view/:id" element={<Details />} />
       </Routes>
       <Footer />
+      </UserContext.Provider>
     </div>
   )
 }
