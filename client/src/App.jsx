@@ -10,11 +10,13 @@ import Register from "./components/Register"
 import { useState } from "react"
 import Logout from "./components/Logout"
 import UserContext from "./contexts/useContext.js"
+import useRequest from "./hooks/useRequest.js"
 
 
 
 function App() {
   const [user, setUser] = useState(null);
+  const { request } = useRequest()
 
 
   const registerHandler = async (email, password) => {
@@ -22,23 +24,13 @@ function App() {
     const newUser = { email, password };
 
 
-    const response = await fetch('http://localhost:3030/users/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newUser)
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message);
+    const result = await request('/users/register', 'POST', newUser);
+  
+    
+    if (!result.accessToken) {
+      throw new Error('Registration failed');
     }
 
-    const result = await response.json();
-
-    console.log(result);
-    
     setUser(result);
 
   }
@@ -62,24 +54,24 @@ function App() {
     loginHandler,
     registerHandler,
     logoutHandler,
-    isAuthenticated:!!user?.accessToken,  
+    isAuthenticated: !!user?.accessToken,
     user
   };
 
   return (
     <div className="flex flex-col min-h-screen">
       <UserContext.Provider value={authContextValues}>
-      <Header/>
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/login" element={<Login onLogin={loginHandler} />} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/posts/create/" element={<Create />} />
-        <Route path="/posts/view/:id" element={<Details />} />
-      </Routes>
-      <Footer />
+        <Header />
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/login" element={<Login onLogin={loginHandler} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/posts/create/" element={<Create />} />
+          <Route path="/posts/view/:id" element={<Details />} />
+        </Routes>
+        <Footer />
       </UserContext.Provider>
     </div>
   )

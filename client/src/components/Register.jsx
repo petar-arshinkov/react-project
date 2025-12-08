@@ -2,11 +2,11 @@ import { Link } from "react-router"
 import { useNavigate } from "react-router";
 import useForm from "../hooks/useForm.js";
 import AuthContext from "../contexts/useContext.js";
-import { use } from "react";
+import { useContext } from "react";
 
 export default function Register() {
     const navigate = useNavigate();
-    const {registerHandler} = use(AuthContext);
+    const {registerHandler} = useContext(AuthContext);
 
     const registerSubmitHandler = async (values) => {
         const { email, password, 're-password': rePassword } = values;
@@ -27,9 +27,6 @@ export default function Register() {
         } catch (error) {
             alert(error.message);
         }
-
-
-
 
     }
 

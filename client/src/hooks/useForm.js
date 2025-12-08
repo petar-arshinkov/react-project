@@ -9,8 +9,8 @@ export default function useForm(callback, initialValues) {
             [e.target.name]: e.target.value
         }))
     };
-    const formAction = async (formData) => {
-        await callback(values, formData);
+    const formAction = (formData) => {
+         callback(values, formData);
     }
     return {
         values,
