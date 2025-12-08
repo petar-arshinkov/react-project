@@ -1,31 +1,46 @@
 import { Link } from "react-router"
+import { useNavigate } from "react-router";
+import useForm from "../hooks/useForm.js";
 
 export default function Register({
-    user,
-    register 
-}
-) {
-    user && console.log('Registered user:', user);
+    onRegister
+}) {
+    const navigate = useNavigate();
 
-    const registerSubmitHandler = (formData) => {
-        const email = formData.get('email');
-        const password = formData.get('password');
-        const rePassword = formData.get('re-password');
+    const registerSubmitHandler = async (values) => {
+        const { email, password, 're-password': rePassword } = values;
 
         if (password !== rePassword) {
             alert("Passwords do not match!");
             return;
         }
 
-        if(!email || !password){
+        if (!email || !password) {
             alert("All fields are required!");
             return;
         }
 
-        register(email);
+        try {
+            await onRegister(email, password);
+            navigate('/');
+        } catch (error) {
+            alert(error.message);
+        }
+
+
 
 
     }
+
+    const {
+        formAction,
+        changeHandler,
+        values
+    } = useForm(registerSubmitHandler, {
+        email: '',
+        password: '',
+        're-password': ''
+    })
 
     return (
         <>
@@ -47,7 +62,7 @@ export default function Register({
                     </div>
 
                     {/* Form */}
-                    <form className="mt-8 space-y-6" action={registerSubmitHandler} >
+                    <form className="mt-8 space-y-6" action={formAction} >
                         <div className="rounded-md shadow-sm -space-y-px">
                             {/* Email Input */}
                             <div>
@@ -62,6 +77,8 @@ export default function Register({
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     placeholder="Email address"
+                                    onChange={changeHandler}
+                                    value={values.email}
                                 />
                             </div>
 
@@ -78,26 +95,30 @@ export default function Register({
                                     required
                                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     placeholder="Password"
+                                    onChange={changeHandler}
+                                    value={values.password}
                                 />
                             </div>
 
-                            
-                                <label htmlFor="re-password" className="sr-only">
-                                    Repeat Password
-                                </label>
-                                <input
-                                    id="re-password"
-                                    name="re-password"
-                                    type="password"
-                                    required
-                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                    placeholder="Type the password again"
-                                />
+
+                            <label htmlFor="re-password" className="sr-only">
+                                Repeat Password
+                            </label>
+                            <input
+                                id="re-password"
+                                name="re-password"
+                                type="password"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                placeholder="Type the password again"
+                                onChange={changeHandler}
+                                value={values['re-password']}
+                            />
                         </div>
 
-                        
-                           
-                        
+
+
+
 
                         {/* Submit Button */}
                         <div>

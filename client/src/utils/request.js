@@ -1,0 +1,24 @@
+const BASE_URL = 'http://localhost:3030/jsonstore';
+
+export default async function request(url, method, data) {
+    let options = {}
+
+    if (method) {
+        options.method = method;
+    }
+
+    if (data) {
+        options.headers = {
+            'Content-Type': 'application/json'
+        };
+        options.body = JSON.stringify(data);
+    }
+    const response = await fetch(`${BASE_URL}${url}`, options);
+
+    if (!response.ok) {
+        throw response.statusText;
+    }
+
+    const result = await response.json();
+    return result;
+}

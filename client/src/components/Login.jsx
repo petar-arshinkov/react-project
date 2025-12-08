@@ -1,8 +1,34 @@
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
-const Login = () => {
+export default function Login({
+    onLogin
+}
+) {
+    const navigate = useNavigate();
+    const submitAction = (formData) => {
+    
+        const email = formData.get('email');
+        const password = formData.get('password');
+        
+
+        if (!email || !password) {
+            alert("All fields are required!");
+            return;
+        }
+
+        try {
+            onLogin(email, password);
+            navigate('/');
+
+        } catch (error) {
+            alert(error.message);
+        }
+
+
+    }
     return (<>
-{/* // Centering wrapper */}
+        {/* // Centering wrapper */}
         <div className="flex min-h-screen items-start justify-center bg-gray-100 p-4 sm:p-6">
             <div className="mt-8 w-full max-w-md space-y-8 p-10 bg-white rounded-xl shadow-2xl">
 
@@ -20,7 +46,7 @@ const Login = () => {
                 </div>
 
                 {/* Form */}
-                <form className="mt-8 space-y-6" action="#" method="POST">
+                <form className="mt-8 space-y-6" action={submitAction} >
                     <div className="rounded-md shadow-sm -space-y-px">
                         {/* Email Input */}
                         <div>
@@ -67,8 +93,6 @@ const Login = () => {
                 </form>
             </div>
         </div>
-</>
-        );
+    </>
+    );
 };
-
-        export default Login;
