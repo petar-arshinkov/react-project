@@ -4,7 +4,7 @@ const maxExcerptLength = 300;
 
 export default function Post(
     {
-        id,
+        _id,
         title,
         body,
         imageUrl
@@ -12,7 +12,7 @@ export default function Post(
 ) {
 
     return (<>
-        <div key={id} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col justify-between h-full">
+        <div key={_id} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col justify-between h-full">
             <div>
                 <h3 className="text-xl font-semibold text-indigo-600 mb-2">{title}</h3>
                 <div className="relative w-full aspect-video bg-gray-200">
@@ -28,7 +28,7 @@ export default function Post(
             </div>
             <div className="flex justify-end space-x-2 mt-4">
                 <button type="secondary" className="bg-indigo-600 text-white hover:bg-indigo-700 font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" >
-                    <Link to={`/posts/view/${id}`}>View</Link>
+                    <Link to={`/posts/view/${_id}`}>View</Link>
                 </button>
 
             </div>

@@ -1,41 +1,42 @@
 import { useNavigate } from "react-router";
+import useForm from "../hooks/useForm";
+import useRequest from "../hooks/useRequest";
 
 
 
 export default function Create() {
 
-    const BASE_API_URL = 'http://localhost:3030/data/posts';
-    // "http://localhost:3030/jsonstore/blog/posts/"
+
     const navigate = useNavigate();
+    const { request } = useRequest();
 
-    const createPostHandler = async (e) => {
-        e.preventDefault();
-
-
-        const formData = new FormData(e.target);
-        const postData = Object.fromEntries(formData);
+    const createPostHandler = async (values) => {
+        const data = values;
 
         try {
-            const response = await fetch(BASE_API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(postData)
-            });
-            const result = await response.json()
-            console.log('Created new post:', result);
-            navigate('/blog');
+            await request('/data/posts', 'POST', data);
+        navigate('/blog');
         } catch (error) {
-            alert('Error creating post:', error);
+            alert("Failed to create post.");
+            console.error(error);
         }
+        
 
     }
+    const {
+        formAction,
+        changeHandler,
+        values
+    } = useForm(createPostHandler, {
+        title: '',
+        imageUrl: '',
+        body: ''
+    });
     return (
         <div className="min-h-screen py-12" >
             <div className="w-full max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-2xl border border-gray-100">
                 <h2 className="text-3xl font-bold text-center text-indigo-600 mb-8">Create New Blog Post</h2>
-                <form className="space-y-6" onSubmit={createPostHandler}>
+                <form className="space-y-6" action={formAction}>
                     {/* Title Input */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="title">Title</label>
@@ -46,6 +47,8 @@ export default function Create() {
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
                             placeholder="Your catchy title here"
                             name="title"
+                            onChange={changeHandler}
+                            value={values.title}
                         />
                     </div>
 
@@ -58,6 +61,8 @@ export default function Create() {
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
                             placeholder="e.g., https://example.com/image.jpg"
                             name="imageUrl"
+                            onChange={changeHandler}
+                            value={values.imageUrl}
                         />
                     </div>
 
@@ -71,6 +76,8 @@ export default function Create() {
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
                             placeholder="Write your amazing content here..."
                             name="body"
+                            onChange={changeHandler}
+                            value={values.body}
                         />
                     </div>
 
