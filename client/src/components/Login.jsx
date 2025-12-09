@@ -1,16 +1,16 @@
 import { Link } from "react-router";
 import { useNavigate } from "react-router";
+import useForm from "../hooks/useForm";
+import { useContext } from "react";
+import AuthContext from "../contexts/useContext.js";
 
-export default function Login({
-    onLogin
-}
-) {
+export default function Login() {
     const navigate = useNavigate();
-    const submitAction = (formData) => {
-    
-        const email = formData.get('email');
-        const password = formData.get('password');
-        
+    const {loginHandler} = useContext(AuthContext);
+
+
+    const loginSubmitHandler = async (values) => {
+        const { email, password } = values;
 
         if (!email || !password) {
             alert("All fields are required!");
@@ -18,7 +18,7 @@ export default function Login({
         }
 
         try {
-            onLogin(email, password);
+            await loginHandler(email, password);
             navigate('/');
 
         } catch (error) {
@@ -27,6 +27,12 @@ export default function Login({
 
 
     }
+    const { formAction, changeHandler,
+        values } = useForm(loginSubmitHandler, {
+            email: '',
+            password: ''
+        });
+
     return (<>
         {/* // Centering wrapper */}
         <div className="flex min-h-screen items-start justify-center bg-gray-100 p-4 sm:p-6">
@@ -46,7 +52,7 @@ export default function Login({
                 </div>
 
                 {/* Form */}
-                <form className="mt-8 space-y-6" action={submitAction} >
+                <form className="mt-8 space-y-6" action={formAction} >
                     <div className="rounded-md shadow-sm -space-y-px">
                         {/* Email Input */}
                         <div>
@@ -61,6 +67,8 @@ export default function Login({
                                 required
                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Email address"
+                                onChange={changeHandler}
+                                value={values.email}
                             />
                         </div>
 
@@ -77,6 +85,8 @@ export default function Login({
                                 required
                                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Password"
+                                onChange={changeHandler}
+                                value={values.password}
                             />
                         </div>
                     </div>

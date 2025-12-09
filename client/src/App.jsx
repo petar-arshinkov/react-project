@@ -35,8 +35,12 @@ function App() {
 
   }
 
-  const loginHandler = () => {
+  const loginHandler = async (email, password) => {
+    const result = request('/users/login', 'POST', { email, password });
 
+    const user = result;
+    console.log(user);
+    
 
     if (!user) {
       alert("Invalid credentials");
@@ -64,7 +68,7 @@ function App() {
         <Header />
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/login" element={<Login onLogin={loginHandler} />} />
+          <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
           <Route path="/blog" element={<Blog />} />
