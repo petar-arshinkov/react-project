@@ -1,19 +1,27 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router';
+import UserContext from '../contexts/UserContext';
 
 // Define the navigation array outside the component
 const navigation = [
     { name: 'Home', to: '/' },
     { name: 'Blog', to: '/blog' },
-    { name: 'Create Post', to: '/posts/create' },
     { name: 'Login', to: '/login' },
     { name: 'Register', to: '/register' },
+   
+];
+
+const authenticatedNavigation = [
+    { name: 'Home', to: '/' },
+    { name: 'Blog', to: '/blog' },
+    { name: 'Create Post', to: '/posts/create' },
     { name: 'Logout', to: '/logout' }
 ];
 
-export default function Header(
-    { user }
-) {
+export default function Header() {
+
+    const { isAuthenticated } = useContext(UserContext);
+
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -36,25 +44,32 @@ export default function Header(
 
                     <nav className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
-                            {navigation.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    to={item.to}
-                                    className="text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
-                                >
-                                    {item.name}
-                                </Link>
-                                
-                            ))}
+                            {isAuthenticated
+                                ? (
+                                    authenticatedNavigation.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            to={item.to}
+                                            className="text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))
+                                )
+                                :
+                                (
+                                    navigation.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            to={item.to}
+                                            className="text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
+                                        >
+                                            {item.name}
+                                        </Link>
 
-                            {user && (
-                                
-                                <div className="text-gray-800 px-3 py-2 rounded-md text-sm font-medium">
-                                    Welcome, {user}
-                                </div>
-                            )}
-
-
+                                    ))
+                                )
+                            }
                         </div>
                     </nav>
 
@@ -83,15 +98,32 @@ export default function Header(
             {/* Mobile Menu Content (Conditionally Rendered) */}
             <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                    {navigation.map((item) => (
-                        <Link
-                            key={item.name}
-                            to={item.to}
-                            className="block text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 px-3 py-2 rounded-md text-base font-medium"
-                        >
-                            {item.name}
-                        </Link>
-                    ))}
+        {isAuthenticated
+                                ? (
+                                    authenticatedNavigation.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            to={item.to}
+                                            className="text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))
+                                )
+                                :
+                                (
+                                    navigation.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            to={item.to}
+                                            className="text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
+                                        >
+                                            {item.name}
+                                        </Link>
+
+                                    ))
+                                )
+                            }
                 </div>
             </div>
         </header>
