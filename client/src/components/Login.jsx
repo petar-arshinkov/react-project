@@ -2,11 +2,11 @@ import { Link } from "react-router";
 import { useNavigate } from "react-router";
 import useForm from "../hooks/useForm";
 import { useContext } from "react";
-import AuthContext from "../contexts/useContext.js";
+import UserContext from "../contexts/UserContext.jsx";
 
 export default function Login() {
     const navigate = useNavigate();
-    const {loginHandler} = useContext(AuthContext);
+    const {loginHandler} = useContext(UserContext);
 
 
     const loginSubmitHandler = async (values) => {
