@@ -8,14 +8,14 @@ import Details from "./components/Details"
 import Create from "./components/Create"
 import Register from "./components/Register"
 import Logout from "./components/Logout"
-// import { useContext } from "react"
-import  UserContext  from "./contexts/UserContext.jsx"
+import Edit from "./components/Edit"
+
 
 
 
 
 function App() {
-// const {user} = useContext(UserContext)
+
   return (
     <div className="flex flex-col min-h-screen">
       
@@ -28,6 +28,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/posts/create/" element={<Create />} />
           <Route path="/posts/view/:id" element={<Details />} />
+          <Route path="/posts/edit/:id" element={<Edit />} />
         </Routes>
         <Footer />
       

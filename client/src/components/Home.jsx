@@ -5,7 +5,6 @@ import { useState } from "react";
 export default function Home() {
 
     const BASE_API_URL = 'http://localhost:3030/data/posts';
-    // "http://localhost:3030/jsonstore/blog/posts/"
     const [latestPosts, setLatestPosts] = useState([]);
   
 

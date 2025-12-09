@@ -1,15 +1,17 @@
 import { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router";
 import { useState } from "react";
+import UserContext from "../contexts/UserContext";
+import { useContext } from "react";
 
 const BASE_API_URL = 'http://localhost:3030/data/posts/';
-// "http://localhost:3030/jsonstore/blog/posts/"
 
 export default function Details() {
 
     const { id } = useParams();
     const [post, setPost] = useState({});
     const navigate = useNavigate()
+    const {user, isAuthenticated } = useContext(UserContext);
 
     useEffect(() => {
         (async () => {
@@ -62,7 +64,8 @@ export default function Details() {
 
                 <div className="text-gray-700 leading-relaxed space-y-6">
                     <p>{post.body}</p>
-                    <div className="pt-6 border-t mt-8 flex justify-end">
+
+                    {isAuthenticated && user._id === post._ownerId && (<div className="pt-6 border-t mt-8 flex justify-end">
                         <button type="primary"
                             className="bg-red-500
                          hover:bg-red-600
@@ -95,7 +98,8 @@ export default function Details() {
                             <Link to={`/posts/edit/${id}`}>Edit</Link>
                         </button>
 
-                    </div>
+                    </div>)}
+                    
                 </div>
             </div>
         </div>
