@@ -12,25 +12,12 @@ export default function Details() {
     const { id } = useParams();
     const [post, setPost] = useState({});
     const navigate = useNavigate()
-    
-    // Destructure likedPostsIds from context
-    const { user, isAuthenticated, likeHandler, likedPostsIds } = useContext(UserContext);
+    const { user, isAuthenticated } = useContext(UserContext);
 
-    // D E R I V E D   S T A T E : Calculate isLiked based on context state
-    // Check if the current post ID (id) is included in the likedPostsIds array
-    const isLiked = likedPostsIds.includes(id);
+      const [isLiked, setIsLiked] = useState(false);
 
-    const toggleLike = async () => {
-        try {
-            // likeHandler now handles the API call and context state update
-            await likeHandler(id); 
-            // NOTE: We don't need to manually setIsLiked, 
-            // as 'isLiked' is derived from 'likedPostsIds' which is updated by likeHandler.
-        } catch (error) {
-            // Handle error (e.g., show a notification)
-            alert("Failed to update like status. Please try again.");
-            console.error("Toggle like error:", error);
-        }
+    const toggleLike = () => {
+        setIsLiked(!isLiked);
     };
 
     useEffect(() => {
@@ -47,6 +34,8 @@ export default function Details() {
     }, [id]);
 
     const deleteHandler = async () => {
+
+
         const isConfirmed = confirm(`Are you sure you want to delete this post: ${post.title}?`);
 
         if (!isConfirmed) {
@@ -54,12 +43,8 @@ export default function Details() {
         }
 
         try {
-            // Add authorization header for delete
             await fetch(`${BASE_API_URL}${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-Authorization': user.accessToken // Assuming your API uses this header
-                }
+                method: 'DELETE'
             })
             navigate('/blog');
 
@@ -87,53 +72,50 @@ export default function Details() {
                 <div className="text-gray-700 leading-relaxed space-y-6 break-words">
                     <p>{post.body}</p>
 
-                    {isAuthenticated && user._id === post._ownerId ? (
-                        // Owner actions (Delete/Edit)
+
+                    {isAuthenticated && user._id === post._ownerId ? (<div className="pt-6 border-t mt-8 flex justify-end">
+
+                        <button type="primary"
+                            className="bg-red-500
+                         hover:bg-red-600
+                         text-white font-semibold
+                         py-2
+                         px-4
+                         rounded-md
+                         shadow-md
+                         transition duration-150
+                         focus:outline-none
+                         focus:ring-2 focus:ring-red-400
+                         focus:ring-opacity-50" onClick={deleteHandler}>
+                            Delete
+                        </button>
+                        <button type="primary"
+                            className="bg-green-500 
+                        hover:bg-green-600 
+                        text-white font-semibold 
+                        py-2 
+                        px-4
+                        rounded-md 
+                        shadow-md 
+                        transition 
+                        duration-150 
+                        focus:outline-none 
+                        focus:ring-2 
+                        focus:ring-green-400
+                        focus:ring-opacity-50 
+                        ml-3" >
+                            <Link to={`/posts/edit/${id}`}>Edit</Link>
+                        </button>
+
+                    </div>) :
                         <div className="pt-6 border-t mt-8 flex justify-end">
-                            <button type="primary"
-                                className="bg-red-500
-                             hover:bg-red-600
-                             text-white font-semibold
-                             py-2
-                             px-4
-                             rounded-md
-                             shadow-md
-                             transition duration-150
-                             focus:outline-none
-                             focus:ring-2 focus:ring-red-400
-                             focus:ring-opacity-50" onClick={deleteHandler}>
-                                Delete
-                            </button>
-                            <button type="primary"
-                                className="bg-green-500 
-                             hover:bg-green-600 
-                             text-white font-semibold 
-                             py-2 
-                             px-4
-                             rounded-md 
-                             shadow-md 
-                             transition 
-                             duration-150 
-                             focus:outline-none 
-                             focus:ring-2 
-                             focus:ring-green-400
-                             focus:ring-opacity-50 
-                             ml-3" >
-                                <Link to={`/posts/edit/${id}`}>Edit</Link>
-                            </button>
-                        </div>
-                    ) : isAuthenticated ? (
-                        // Authenticated non-owner like button
-                        <div className="pt-6 border-t mt-8 flex justify-end">
-                            <button
-                                className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-colors ${isLiked ? 'bg-red-100 text-red-600 hover:bg-red-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-                                onClick={toggleLike}
+                            <button 
+                            className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-colors ${isLiked ? 'bg-red-50 text-red-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                            onClick={toggleLike}
                             >
-                                <Heart className={`w-4 h-4 ${isLiked ? 'fill-current text-red-600' : 'text-gray-600'}`} />
-                                <span className="font-semibold">{isLiked ? 'Liked' : 'Like'}</span>
-                            </button>
-                        </div>
-                    ) : null} {/* If not authenticated, maybe show nothing or a "Log in to like" message */}
+                                <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
+                            </button> <span className="font-semibold">{isLiked ? 'Liked' : 'Like'}</span></div>
+                    }
 
                 </div>
             </div>
