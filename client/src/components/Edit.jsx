@@ -102,14 +102,15 @@ export default function Edit() {
                     <label htmlFor="body" className="block text-sm font-medium text-gray-700 mb-1">
                         Post Content
                     </label>
-                    <textarea
+                
+                    <textarea 
                         id="body"
                         name="body"
                         rows="10"
                         required
                         onChange={changeHandler}
                         value={values.body}
-                        className="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 sm:text-lg"
+                        className="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
                         placeholder="Write the main content of your post here..."
                     ></textarea>
                 </div>

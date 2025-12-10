@@ -62,7 +62,7 @@ export default function Details() {
                     <h1 className="text-4xl font-extrabold text-indigo-700 mb-2">{post.title}</h1>
                 </div>
 
-                <div className="text-gray-700 leading-relaxed space-y-6">
+                <div className="text-gray-700 leading-relaxed space-y-6 break-words">
                     <p>{post.body}</p>
 
                     {isAuthenticated && user._id === post._ownerId && (<div className="pt-6 border-t mt-8 flex justify-end">

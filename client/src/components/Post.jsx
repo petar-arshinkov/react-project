@@ -24,7 +24,7 @@ export default function Post(
                         onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/cccccc/000000?text=Image+Failed'; }}
                     />
                 </div>
-                <p className="text-gray-600 mb-4 text-sm">{body.slice(0,maxExcerptLength)}{body.length > maxExcerptLength ? '...' : ''}</p>
+                <p className="text-gray-600 mb-4 text-sm break-words">{body.slice(0,maxExcerptLength)}{body.length > maxExcerptLength ? '...' : ''}</p>
             </div>
             <div className="flex justify-end space-x-2 mt-4">
                 <button type="secondary" className="bg-indigo-600 text-white hover:bg-indigo-700 font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" >
