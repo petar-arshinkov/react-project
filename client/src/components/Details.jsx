@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { Heart } from "lucide-react"
 
 
-const BASE_API_URL = 'http://localhost:3030/data/posts/';
+const BASE_API_URL = 'http://localhost:3030/data/posts/'; 
 
 export default function Details() {
     const { id } = useParams();
