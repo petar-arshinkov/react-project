@@ -27,6 +27,9 @@ export default function Post(
                 <p className="text-gray-600 mb-4 text-sm break-words">{body.slice(0,maxExcerptLength)}{body.length > maxExcerptLength ? '...' : ''}</p>
             </div>
             <div className="flex justify-end space-x-2 mt-4">
+
+                
+                
                 <button type="secondary" className="bg-indigo-600 text-white hover:bg-indigo-700 font-semibold py-2 px-4 rounded-md shadow-md transition duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" >
                     <Link to={`/posts/view/${_id}`}>View</Link>
                 </button>
