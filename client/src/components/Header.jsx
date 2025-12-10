@@ -2,13 +2,11 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router';
 import UserContext from '../contexts/UserContext';
 
-// Define the navigation array outside the component
 const navigation = [
     { name: 'Home', to: '/' },
     { name: 'Blog', to: '/blog' },
     { name: 'Login', to: '/login' },
     { name: 'Register', to: '/register' },
-   
 ];
 
 const authenticatedNavigation = [
