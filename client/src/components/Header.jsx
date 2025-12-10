@@ -14,6 +14,7 @@ const navigation = [
 const authenticatedNavigation = [
     { name: 'Home', to: '/' },
     { name: 'Blog', to: '/blog' },
+    { name: 'My Posts', to: '/my-posts' },
     { name: 'Create Post', to: '/posts/create' },
     { name: 'Logout', to: '/logout' }
 ];

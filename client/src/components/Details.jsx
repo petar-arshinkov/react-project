@@ -3,15 +3,22 @@ import { useParams, Link, useNavigate } from "react-router";
 import { useState } from "react";
 import UserContext from "../contexts/UserContext";
 import { useContext } from "react";
+import { Heart } from "lucide-react"
+
 
 const BASE_API_URL = 'http://localhost:3030/data/posts/';
 
 export default function Details() {
-
     const { id } = useParams();
     const [post, setPost] = useState({});
     const navigate = useNavigate()
-    const {user, isAuthenticated } = useContext(UserContext);
+    const { user, isAuthenticated } = useContext(UserContext);
+
+      const [isLiked, setIsLiked] = useState(false);
+
+    const toggleLike = () => {
+        setIsLiked(!isLiked);
+    };
 
     useEffect(() => {
         (async () => {
@@ -65,7 +72,9 @@ export default function Details() {
                 <div className="text-gray-700 leading-relaxed space-y-6 break-words">
                     <p>{post.body}</p>
 
-                    {isAuthenticated && user._id === post._ownerId && (<div className="pt-6 border-t mt-8 flex justify-end">
+
+                    {isAuthenticated && user._id === post._ownerId ? (<div className="pt-6 border-t mt-8 flex justify-end">
+
                         <button type="primary"
                             className="bg-red-500
                          hover:bg-red-600
@@ -98,11 +107,19 @@ export default function Details() {
                             <Link to={`/posts/edit/${id}`}>Edit</Link>
                         </button>
 
-                    </div>)}
-                    
+                    </div>) :
+                        <div className="pt-6 border-t mt-8 flex justify-end">
+                            <button 
+                            className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-colors ${isLiked ? 'bg-red-50 text-red-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                            onClick={toggleLike}
+                            >
+                                <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
+                            </button> <span className="font-semibold">{isLiked ? 'Liked' : 'Like'}</span></div>
+                    }
+
                 </div>
             </div>
-        </div>
+        </div >
     </>
     );
 }

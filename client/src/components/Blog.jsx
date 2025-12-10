@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Post from "./Post";
 import { useState } from "react";
 
+
 const BASE_API_URL = 'http://localhost:3030/data/posts';
 // "http://localhost:3030/jsonstore/blog/posts/"
 
@@ -14,7 +15,6 @@ export default function Blog() {
             try {
                 const response = await fetch(BASE_API_URL);
                 const data = await response.json();
-                console.log('Fetched blog posts:', data);
                 setPosts(Object.values(data));
 
 
