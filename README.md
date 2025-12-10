@@ -45,4 +45,5 @@ HTML5 / CSS3
 Tailwind CSS
 
 👤 Author 
-Petar ArshinkovGitHub: https://github.com/petar-arshinkov
+Petar Arshinkov
+GitHub: https://github.com/petar-arshinkov
