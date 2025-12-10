@@ -44,4 +44,5 @@ JavaScript: Core language.
 HTML5 / CSS3
 Tailwind CSS
 
-👤 AuthorPetar ArshinkovGitHub: https://github.com/petar-arshinkov
+👤 Author 
+Petar ArshinkovGitHub: https://github.com/petar-arshinkov
